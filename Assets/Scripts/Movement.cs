@@ -30,6 +30,8 @@ public class Movement : MonoBehaviour
 
             rb.AddRelativeForce(thrustBoost);
         }
+
+        transform.position = new Vector3(transform.position.x, transform.position.y, 0);
     }
 
     private void RotateRocket()

@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CollisionHandler : MonoBehaviour
 {
@@ -11,11 +12,22 @@ public class CollisionHandler : MonoBehaviour
         switch (x)
         {
             case obstacle:
-                Destroy(gameObject);
+                RestartLevel();
+                break;
+            case "Mineral":
+                Debug.Log("Add score");
+                Destroy(collision.gameObject);
                 break;
             default:
                 break;
         }
+    }
+
+
+    void RestartLevel()
+    {
+        Destroy(gameObject);
+        SceneManager.LoadScene(0, LoadSceneMode.Single);
     }
 
 }

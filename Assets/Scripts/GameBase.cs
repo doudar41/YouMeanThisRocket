@@ -2,19 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Obstacle : MonoBehaviour
+public class GameBase : MonoBehaviour
 {
-
     [SerializeField]
-    float rotationSpeed;
+    GameObject rocket;
+    Transform spawnPoint;
     void Start()
     {
-        
+        if (rocket != null)
+        {
+            Instantiate(rocket, spawnPoint);
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        transform.Rotate(Vector3.forward * Time.deltaTime * rotationSpeed);
+        
     }
 }
