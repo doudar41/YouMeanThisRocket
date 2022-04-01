@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Obstacle
   - Mineral
+  - Border
   layers:
   - Default
   - TransparentFX

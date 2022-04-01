@@ -1,9 +1,15 @@
+using System.Collections;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+
 
 public class CollisionHandler : MonoBehaviour
 {
-    const string obstacle = "Obstacle";
+    GameBase gameBase;
+
+    private void Awake()
+    {
+        gameBase = FindObjectOfType<GameBase>();
+    }
 
 
     private void OnCollisionEnter(Collision collision)
@@ -11,23 +17,47 @@ public class CollisionHandler : MonoBehaviour
         string x = collision.gameObject.tag;
         switch (x)
         {
-            case obstacle:
-                RestartLevel();
+            case "Obstacle":
+                DoOnCollision("Obstacle");
                 break;
             case "Mineral":
                 Debug.Log("Add score");
                 Destroy(collision.gameObject);
+                break;
+            case "Finish":
+                DoOnCollision("Finish");
                 break;
             default:
                 break;
         }
     }
 
-
-    void RestartLevel()
+    void DoOnCollision(string callUI)
     {
-        Destroy(gameObject);
-        SceneManager.LoadScene(0, LoadSceneMode.Single);
+
+        switch(callUI)
+        {
+            case "Obstacle":
+                gameBase.LoadGameScene(gameBase.activeGameLevel);
+                Destroy(gameObject);
+                break;
+            case "Finish":
+                gameBase.LoadGameScene(gameBase.activeGameLevel+1);
+                transform.rotation = new Quaternion(0, 0, 0, 0);
+                GetComponent<Rigidbody>().freezeRotation = true;
+                GetComponent<Movement>().enabled = false;
+
+                break;
+            default:
+                break;
+        }
+        
+        
+        //call UI
     }
+
+
+
+
 
 }
