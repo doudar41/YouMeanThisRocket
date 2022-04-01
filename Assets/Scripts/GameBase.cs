@@ -8,6 +8,8 @@ public class GameBase : MonoBehaviour
     [SerializeField]  GameObject rocket;
     [SerializeField]  Transform spawnPoint;
     [SerializeField] ScoreManager dataContainer;
+    GameObject player;
+
     public int activeGameLevel; 
     int score = 0;
     
@@ -21,10 +23,23 @@ public class GameBase : MonoBehaviour
         activeGameLevel = SceneManager.GetActiveScene().buildIndex;
         if (rocket != null)
         {
-            Instantiate(rocket, spawnPoint);
+            player = Instantiate(rocket, spawnPoint);
         }
         levelText.text = SceneManager.GetActiveScene().name;
     }
+
+
+    private void Update()
+    {
+        float t = Mathf.Sin(Time.time / 2f);
+            float t1 = Time.time ;
+        Debug.LogFormat("Sin: {0}, Time: {1}", t, t1);
+   
+  
+
+
+    }
+
 
     public void LoadGameScene(int scene, bool loseWin)
     {
@@ -74,6 +89,12 @@ public class GameBase : MonoBehaviour
     void CloseMessage()
     {
         messageText.enabled = false;
+    }
+
+
+    public Transform PlayerTransform()
+    {
+        return player.transform;
     }
 
 }

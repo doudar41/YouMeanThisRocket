@@ -140,7 +140,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 8941e9ae43973b541981e39637d1a781, type: 2}
+  - {fileID: 2100000, guid: 92c92bf2af4a379469ef316d091a6ed1, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -176,7 +176,7 @@ GameObject:
   - component: {fileID: 7578527333776592967}
   m_Layer: 0
   m_Name: Obstacle
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -223,8 +223,8 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 1.7527871
-  m_Height: 3.8700562
+  m_Radius: 1.63
+  m_Height: 3.35
   m_Direction: 1
   m_Center: {x: 0.18224096, y: 0, z: 0}
 --- !u!114 &7578527333776592967
@@ -239,3 +239,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d47c73a1d71f6d946b8636e06e672bdf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rotationSpeed: 1
+  distanceToPlayer: 0
+  warningDistance: 0

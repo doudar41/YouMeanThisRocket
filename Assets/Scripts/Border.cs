@@ -7,10 +7,12 @@ public class Border : MonoBehaviour
 {
     bool inPlace = true, firstMessage = false;
     GameBase gameBase;
+    [SerializeField] float timeToSpentOutside;
 
     private void Start()
     {
         gameBase = FindObjectOfType<GameBase>();
+        Invoke("TimeDelay",5f);
     }
 
     private void OnTriggerExit(Collider collision)
@@ -24,20 +26,25 @@ public class Border : MonoBehaviour
     {
         if(!firstMessage)
         {
-            firstMessage = true; return;
+           return;
         }
         gameBase.MessageText(true,"Oh, you're back", Color.red, 5f);
         StopCoroutine(CrossBorderTimer());
         inPlace = true;
-
     }
 
     IEnumerator CrossBorderTimer()
     {
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(timeToSpentOutside);
         if (!inPlace)
         {
             gameBase.LoadGameScene(gameBase.activeGameLevel, true);
         }
     }
+
+    void TimeDelay()
+    {
+        firstMessage = true;
+    }
+
 }

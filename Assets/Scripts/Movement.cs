@@ -6,7 +6,8 @@ public class Movement : MonoBehaviour
 {
     [SerializeField]
     private float addToBoost = 300f, rotateBoost = 2f;
-    [SerializeField] ParticleSystem thrust; 
+    [SerializeField] ParticleSystem thrust;
+    [SerializeField] Light pointLight;
     private Rigidbody rb;
 
     void Start()
@@ -33,6 +34,7 @@ public class Movement : MonoBehaviour
             rb.AddRelativeForce(0,thrustBoost,0);
 
             thrust.startLifetime = inputForce * 0.1f;
+            pointLight.intensity = inputForce*10;
         }
 
         transform.position = new Vector3(transform.position.x, transform.position.y, 0);

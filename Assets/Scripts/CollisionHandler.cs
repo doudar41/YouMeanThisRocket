@@ -15,13 +15,6 @@ public class CollisionHandler : MonoBehaviour
     {
         gameBase = FindObjectOfType<GameBase>();
         rb = GetComponent<Rigidbody>();
-
-
-    }
-
-    private void Start()
-    {
-      
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -80,11 +73,7 @@ public class CollisionHandler : MonoBehaviour
                 break;
         }
         
-        
     }
-
-
-
 
 
 }
