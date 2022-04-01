@@ -5,20 +5,31 @@ using UnityEngine.SceneManagement;
 
 public class Border : MonoBehaviour
 {
-    bool inPlace = true;
+    bool inPlace = true, firstMessage = false;
+    GameBase gameBase;
+
+    private void Start()
+    {
+        gameBase = FindObjectOfType<GameBase>();
+    }
 
     private void OnTriggerExit(Collider collision)
     {
-        Debug.Log("You start your journey to distant stars");
+        gameBase.MessageText(true, "You started your journey to distant stars", Color.red, 5f); 
         StartCoroutine(CrossBorderTimer());
         inPlace = false;
     }
 
     private void OnTriggerEnter(Collider collision)
     {
-        Debug.Log("Oh, your back");
+        if(!firstMessage)
+        {
+            firstMessage = true; return;
+        }
+        gameBase.MessageText(true,"Oh, you're back", Color.red, 5f);
         StopCoroutine(CrossBorderTimer());
         inPlace = true;
+
     }
 
     IEnumerator CrossBorderTimer()
@@ -26,7 +37,7 @@ public class Border : MonoBehaviour
         yield return new WaitForSeconds(5f);
         if (!inPlace)
         {
-            SceneManager.LoadScene(0);
+            gameBase.LoadGameScene(gameBase.activeGameLevel, true);
         }
     }
 }

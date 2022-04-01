@@ -1,19 +1,33 @@
 using System.Collections;
 using UnityEngine;
+using Cinemachine;
 
 
 public class CollisionHandler : MonoBehaviour
 {
     GameBase gameBase;
+    Rigidbody rb;
+    [SerializeField]CinemachineVirtualCamera vcam;
+    [SerializeField] ParticleSystem explosion;
+    bool isAlive = true;
 
     private void Awake()
     {
         gameBase = FindObjectOfType<GameBase>();
+        rb = GetComponent<Rigidbody>();
+
+
     }
 
+    private void Start()
+    {
+      
+    }
 
     private void OnCollisionEnter(Collision collision)
     {
+        if (!isAlive) return;
+
         string x = collision.gameObject.tag;
         switch (x)
         {
@@ -21,7 +35,7 @@ public class CollisionHandler : MonoBehaviour
                 DoOnCollision("Obstacle");
                 break;
             case "Mineral":
-                Debug.Log("Add score");
+                gameBase.AddScore();
                 Destroy(collision.gameObject);
                 break;
             case "Finish":
@@ -37,23 +51,36 @@ public class CollisionHandler : MonoBehaviour
 
         switch(callUI)
         {
+
             case "Obstacle":
-                gameBase.LoadGameScene(gameBase.activeGameLevel);
-                Destroy(gameObject);
+                explosion.Play();
+                MeshRenderer[] x = gameObject.GetComponentsInChildren<MeshRenderer>();
+                foreach (MeshRenderer i in x)
+                {
+                    i.enabled = false;
+                }
+                gameBase.LoadGameScene(gameBase.activeGameLevel, true);
+
+                isAlive = false;
                 break;
             case "Finish":
-                gameBase.LoadGameScene(gameBase.activeGameLevel+1);
-                transform.rotation = new Quaternion(0, 0, 0, 0);
-                GetComponent<Rigidbody>().freezeRotation = true;
-                GetComponent<Movement>().enabled = false;
 
+                foreach (Transform child in transform)
+                {
+                    child.gameObject.transform.parent = transform;
+                }
+                transform.rotation = new Quaternion(0, 0, 0, 0);
+                rb.freezeRotation = true;
+                vcam.m_Follow = null;
+                gameBase.LoadGameScene(gameBase.activeGameLevel+1, false);
+                //GetComponent<Movement>().enabled = false;
+                isAlive = false;
                 break;
             default:
                 break;
         }
         
         
-        //call UI
     }
 
 

@@ -6,6 +6,7 @@ public class Movement : MonoBehaviour
 {
     [SerializeField]
     private float addToBoost = 300f, rotateBoost = 2f;
+    [SerializeField] ParticleSystem thrust; 
     private Rigidbody rb;
 
     void Start()
@@ -23,12 +24,15 @@ public class Movement : MonoBehaviour
 
     private void GivenRocketABoost()
     {
-        if (Input.GetKey(KeyCode.W))
+        float inputForce = Input.GetAxis("Vertical");
+        if (inputForce != 0)
         {
-           
-            Vector3 thrustBoost = Vector3.up * Time.deltaTime * addToBoost;
+            
+            float thrustBoost = inputForce * Time.deltaTime * addToBoost;
 
-            rb.AddRelativeForce(thrustBoost);
+            rb.AddRelativeForce(0,thrustBoost,0);
+
+            thrust.startLifetime = inputForce * 0.1f;
         }
 
         transform.position = new Vector3(transform.position.x, transform.position.y, 0);
@@ -49,4 +53,8 @@ public class Movement : MonoBehaviour
         }
         rb.freezeRotation = false;
     }
+
+    
+
+
 }
