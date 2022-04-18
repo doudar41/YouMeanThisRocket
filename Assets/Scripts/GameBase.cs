@@ -12,6 +12,7 @@ public class GameBase : MonoBehaviour
 
     public int activeGameLevel; 
     int score = 0;
+    bool test = false;
     
     [SerializeField] TextMeshProUGUI levelText, messageText, scoreText;
 
@@ -26,19 +27,41 @@ public class GameBase : MonoBehaviour
             player = Instantiate(rocket, spawnPoint);
         }
         levelText.text = SceneManager.GetActiveScene().name;
+
+
+        SomeFunctioin();
+
     }
 
 
     private void Update()
     {
-        float t = Mathf.Sin(Time.time / 2f);
+        /*float t = Mathf.Sin(Time.time / 2f);
             float t1 = Time.time ;
-        Debug.LogFormat("Sin: {0}, Time: {1}", t, t1);
+        Debug.LogFormat("Sin: {0}, Time: {1}", t, t1);*/
    
-  
+        
 
 
     }
+
+    void SomeFunctioin()
+    {
+        for(int i =0; i < 10; i++)
+        {
+            Debug.Log(i);
+            if (!test)
+            {
+               
+                return;
+            }
+        }
+
+        Debug.Log("return doesn't work");
+
+    }
+
+
 
 
     public void LoadGameScene(int scene, bool loseWin)

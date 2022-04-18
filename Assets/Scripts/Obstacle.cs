@@ -13,7 +13,6 @@ public class Obstacle : MonoBehaviour
 
     GameBase gameBase;
     
-
     private void Start()
     {
         startPosition = transform.position;
@@ -35,7 +34,6 @@ public class Obstacle : MonoBehaviour
 
         if (distanceToPlayer < warningDistance)
         {
-
             float volumeWarning = 1 - (distanceToPlayer * 0.1f);
             Debug.Log(volumeWarning);
         }
